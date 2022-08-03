@@ -1,0 +1,127 @@
+<?xml version="1.0"?>
+<flowgorithm fileversion="2.11">
+    <attributes>
+        <attribute name="name" value=""/>
+        <attribute name="authors" value="Diogo"/>
+        <attribute name="about" value=""/>
+        <attribute name="saved" value="2022-07-11 02:14:10 "/>
+        <attribute name="created" value="RGlvZ287REVTS1RPUC0yUEY3MExVOzIwMjItMDctMTA7IjA3OjU3OjMzICI7MjczOQ=="/>
+        <attribute name="edited" value="RGlvZ287REVTS1RPUC0yUEY3MExVOzIwMjItMDctMTE7IjAyOjE0OjEwICI7NTsyODM1"/>
+    </attributes>
+    <function name="Main" type="None" variable="">
+        <parameters/>
+        <body>
+            <declare name="item" type="String" array="True" size="50"/>
+            <declare name="nome, p" type="String" array="False" size=""/>
+            <declare name="qtdestoque" type="Integer" array="True" size="50"/>
+            <declare name="qtditens, c" type="Integer" array="False" size=""/>
+            <declare name="qtdano, vlrmedio" type="Real" array="True" size="50"/>
+            <declare name="vlratual" type="Real" array="False" size=""/>
+            <output expression="&quot;Insira quantos itens deseja cadastrar: &quot;" newline="True"/>
+            <input variable="qtditens"/>
+            <assign variable="qtditens" expression="qtditens - 1"/>
+            <for variable="c" start="0" end="qtditens" direction="inc" step="1">
+                <comment text="Enquanto que ir&#225; receber todas as informa&#231;&#245;es a serem salvas nos vetores"/>
+                <output expression="&quot;Insira o nome do item: &quot;" newline="True"/>
+                <input variable="item[c]"/>
+                <output expression="&quot;Insira a quantidade que consome anualmente de &quot; &amp; item[c] &amp; &quot;: &quot;" newline="True"/>
+                <input variable="qtdano[c]"/>
+                <assign variable="qtdano[c]" expression="qtdano[c] / 12"/>
+                <output expression="&quot;Insira o valor medio do &quot; &amp; item[c] &amp; &quot;: &quot;" newline="True"/>
+                <input variable="vlrmedio[c]"/>
+                <output expression="&quot;Insira a quantidade que possui em seu estoque atualmente de &quot; &amp; item[c] &amp; &quot;: &quot;" newline="True"/>
+                <input variable="qtdestoque[c]"/>
+            </for>
+            <do expression="p == &quot;s&quot;">
+                <output expression="&quot;Qual item deseja analisar? &quot;" newline="True"/>
+                <for variable="c" start="0" end="qtditens" direction="inc" step="1">
+                    <output expression="&quot;[&quot; &amp; item[c] &amp; &quot;]&quot;" newline="True"/>
+                    <comment text="Enquanto para mostrar a lista dos itens cadastrados."/>
+                </for>
+                <input variable="nome"/>
+                <comment text="Leia onde ir&#225; ver se o item pedido realmente foi recebido em algum vetor."/>
+                <for variable="c" start="0" end="qtditens" direction="inc" step="1">
+                    <if expression="item[c] == nome">
+                        <then>
+                            <output expression="&quot;Qual o valor atual do item: &quot;" newline="True"/>
+                            <comment text="Caso o item pedido realmente esteja em algum vetor o usu&#225;rio ir&#225; digitar o valor atual do produto para o programa informar todas as condi&#231;&#245;es baseadas no produto e seu valor atual."/>
+                            <input variable="vlratual"/>
+                            <if expression="vlrmedio[c] &gt; vlratual and qtdano[c] &gt; qtdestoque[c]">
+                                <then>
+                                    <output expression="&quot;O item est&#225; em CONTA e VOC&#202; PRECISA dele atualmente.&quot;" newline="True"/>
+                                </then>
+                                <else>
+                                    <if expression="vlrmedio[c] &gt; vlratual and qtdano[c] &lt; qtdestoque[c]">
+                                        <then>
+                                            <output expression="&quot;O item est&#225; em CONTA, mas VOC&#202; N&#195;O PRECISA dele atualmente.&quot;" newline="True"/>
+                                        </then>
+                                        <else>
+                                            <if expression="vlrmedio[c] &lt; vlratual and qtdano[c] &gt; qtdestoque[c]">
+                                                <then>
+                                                    <output expression="&quot;O item est&#225; CARO, mas VOC&#202; PRECISA dele atualmente.&quot;" newline="True"/>
+                                                </then>
+                                                <else>
+                                                    <if expression="vlrmedio[c] &lt; vlratual and qtdano[c] &lt; qtdestoque[c]">
+                                                        <then>
+                                                            <output expression="&quot;O item est&#225; CARO e VOC&#202; N&#195;O PRECISA dele atualmente.&quot;" newline="True"/>
+                                                        </then>
+                                                        <else>
+                                                            <if expression="vlrmedio[c] == vlratual and qtdano[c] == qtdestoque[c]">
+                                                                <then>
+                                                                    <output expression="&quot;O item est&#225; com o PRE&#199;O NORMAL e VOC&#202; N&#195;O PRECISA dele atualmente.&quot;" newline="True"/>
+                                                                </then>
+                                                                <else>
+                                                                    <if expression="vlrmedio[c] == vlratual and qtdano[c] &lt; qtdestoque[c]">
+                                                                        <then>
+                                                                            <output expression="&quot;O item est&#225; com o PRE&#199;O NORMAL e VOC&#202; PRECISA dele atualmente.&quot;" newline="True"/>
+                                                                        </then>
+                                                                        <else>
+                                                                            <if expression="vlrmedio[c] == vlratual and qtdano[c] &gt; qtdestoque[c]">
+                                                                                <then>
+                                                                                    <output expression="&quot;O item est&#225; com o PRE&#199;O NORMAL, mas VOC&#202; PRECISA dele atualmente.&quot;" newline="True"/>
+                                                                                </then>
+                                                                                <else>
+                                                                                    <if expression="vlrmedio[c] &gt; vlratual and qtdano[c] == qtdestoque[c]">
+                                                                                        <then>
+                                                                                            <output expression="&quot;O item est&#225; em CONTA, mas VOC&#202; N&#195;O PRECISA dele atualmente.&quot;" newline="True"/>
+                                                                                        </then>
+                                                                                        <else>
+                                                                                            <if expression="vlrmedio[c] &lt; vlratual and qtdano[c] == qtdestoque[c]">
+                                                                                                <then>
+                                                                                                    <output expression="&quot;O item est&#225; CARO e VOC&#202; N&#195;O PRECISA dele atualmente.&quot;" newline="True"/>
+                                                                                                </then>
+                                                                                                <else>
+                                                                                                    <output expression="&quot;&quot;" newline="True"/>
+                                                                                                </else>
+                                                                                            </if>
+                                                                                        </else>
+                                                                                    </if>
+                                                                                </else>
+                                                                            </if>
+                                                                        </else>
+                                                                    </if>
+                                                                </else>
+                                                            </if>
+                                                        </else>
+                                                    </if>
+                                                </else>
+                                            </if>
+                                        </else>
+                                    </if>
+                                </else>
+                            </if>
+                        </then>
+                        <else>
+                            <comment text="Caso o item n&#227;o esteja cadastrado o usu&#225;rio ser&#225; informado e o programa ir&#225; perguntar se ele deseja continuar."/>
+                            <output expression="&quot;Item n&#227;o cadastrado!!!&quot;" newline="True"/>
+                        </else>
+                    </if>
+                </for>
+                <output expression="&quot;Deseja continuar? s/n&quot;" newline="True"/>
+                <comment text="Ainda ser&#225; poss&#237;vel o usu&#225;rio analisar todos os produtos cadastratos caso queira devido ao fa&#231;a enquanto."/>
+                <input variable="p"/>
+                <comment text="O programa s&#243; n&#227;o ir&#225; dar continuidade caso digite uma palavra diferente de &quot;s&quot;."/>
+            </do>
+        </body>
+    </function>
+</flowgorithm>
